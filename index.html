@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Audio Player</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script>
+
+	$(document).ready(function() {
+
+		i=0;
+
+		var playListCount = $('.playsong').size();
+		nowPlaying = document.getElementsByClassName('playsong');
+		//loads all songs into a variable
+		nowPlaying[i].load();
+
+		$('.play').on('click', function() {
+			nowPlaying[i].play();
+			callMeta();
+		});
+
+		$('.stop').on('click', function() {
+			nowPlaying[i].pause();
+			callMeta();
+		});
+
+		$('.next').on('click', function() {
+			if (i < playListCount -1) {
+				$.each($('audio.playsong'), function() {
+					this.pause();
+				});
+				++i;
+				// nowPlaying = audioArray[i];
+
+				nowPlaying[i].load();
+				nowPlaying[i].play();
+				callMeta();
+			}
+		});
+
+		$('.prev').on('click', function() {
+			if (i >= playListCount -7) { // -4 because there are 5 tracks and it starts counting at 0
+				$.each($('audio.playsong'), function() {
+					this.pause();
+				});
+				--i;
+				nowPlaying[i].load();
+				nowPlaying[i].play();
+				callMeta();
+			}
+		});
+
+		function callMeta() {
+			var trackTitle = $(nowPlaying[i]).attr('data-songtitle');
+			$('.songtitle').html(trackTitle);
+			var trackArtist = $(nowPlaying[i]).attr('data-songartist');
+			$('.songartist').html(trackArtist);
+			var albumArt = $(nowPlaying[i]).attr('data-albumart');
+			$('img.albumart').attr('src', albumArt);
+		}
+	})
+	
+
+
+</script>
+
+</head>
+
+<body>
+		<h1>HTML5 Audio Player</h1>
+			<div id='button_position'>
+				<div class="play">
+					<form>
+						<input type='button' value='Play' class='button'>
+					</form><br>
+				</div>
+
+				<div class="stop">
+					<form>
+						<input type='button' value='Stop' class='button'>
+					</form><br>
+				</div>
+
+				<div class="next">
+					<form>
+						<input type='button' value='Next' class='button'>
+					</form><br>
+				</div>
+
+				<div class="prev">
+					<form>
+						<input type='button' value='Prev' class='button'>
+					</form><br>
+				</div>
+			</div>
+			<audio class="playsong" data-songtitle="The Only Place" data-songartist="Best Coast" data-albumart="img/The+Only+Place++HQ.png" src="song/Best Coast - The Only Place.mp3"/>
+				Your browser does not support the HTML audio tag!
+			</audio>
+
+			<audio class="playsong" data-songtitle="Black Hills" data-songartist="Gardens & Villa" data-albumart="img/Gardens++Villa+cover.jpg" src="song/Gardens & Villa - Black Hills.mp3"/>
+				Your browser does not support the HTML audio tag!
+			</audio>
+
+			<audio class="playsong" data-songtitle="Before The Bridge" data-songartist="Future Islands" data-albumart="img/Future+Islands.jpg" src="song/Future Islands - Before the Bridge.mp3"/>
+				Your browser does not support the HTML audio tag!
+			</audio>
+
+			<audio class="playsong" data-songtitle="Stay Useless" data-songartist="Cloud Nothings" data-albumart="img/Attack+on+Memory.png" src="song/Cloud Nothings - Stay Useless.mp3"/>
+				Your browser does not support the HTML audio tag!
+			</audio>
+
+			<audio class="playsong" data-songtitle="2080" data-songartist="Yeasayer" data-albumart="img/All+Hour+Cymbals+Picture+2.png" src="song/Yeasayer - 2080.mp3"/>
+				Your browser does not support the HTML audio tag!
+			</audio>
+
+			<audio class="playsong" data-songtitle="Know Me" data-songartist="Frankie Rose" data-albumart="img/Interstellar.png" src="song/Frankie Rose - Know Me.mp3"/>
+				Your browser does not support the HTML audio tag!
+			</audio>
+
+			<audio class="playsong" data-songtitle="Hawaii" data-songartist="Blackbird Blackbird" data-albumart="img/Summer+Heart+BLACKBIRD.png" src="song/Blackbird Blackbird - Hawaii.mp3"/>
+				Your browser does not support the HTML audio tag!
+			</audio>
+
+			<audio class="playsong" data-songtitle="Twins" data-songartist="Gem Club" data-albumart="img/Breakers++cover.jpg" src="song/Gem Club - Twins.mp3"/>
+				Your browser does not support the HTML audio tag!
+			</audio>
+
+			<div id='info'>
+				<div class='songtitle'>Song Title</div>
+				<div class='songartist'>Artist</div>
+			<div id='art_position'>
+				<img class='albumart' src='img/needle.jpg' height='340px' width='300px'></img>
+			</div>	
+			</div>
+</body>
+</html>
